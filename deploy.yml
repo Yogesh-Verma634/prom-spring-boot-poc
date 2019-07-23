@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: APPNAME-deployment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: APPNAME-deployment
+    spec:
+      containers:
+      - name: APPNAME-deployment
+        image: SOMEURL.com/APPNAME:VERSION
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: APPNAME-config
+              key: 
+        - name: DEPLOY_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: APPNAME-config
+              key: 
+        - name: USER
+          valueFrom:
+            configMapKeyRef:
+              name: APPNAME-config
+              key: 
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: 
+              key: 
